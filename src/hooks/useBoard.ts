@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase';
 import type { Board } from '../types';
 
 const DEFAULT_BOARD_NAME = 'My Board';
+const LAST_BOARD_KEY = 'last-board-id';
 
 export function useBoard() {
   const [board, setBoard] = useState<Board | null>(null);
@@ -25,7 +26,11 @@ export function useBoard() {
 
       if (data && data.length > 0) {
         setBoards(data);
-        setBoard(data[0]);
+
+        // Try to restore last opened board
+        const lastBoardId = localStorage.getItem(LAST_BOARD_KEY);
+        const lastBoard = lastBoardId ? data.find(b => b.id === lastBoardId) : null;
+        setBoard(lastBoard || data[0]);
       } else {
         // Create a default board if none exists
         const newBoard = await createBoard(DEFAULT_BOARD_NAME);
@@ -84,6 +89,7 @@ export function useBoard() {
     const selectedBoard = boards.find(b => b.id === boardId);
     if (selectedBoard) {
       setBoard(selectedBoard);
+      localStorage.setItem(LAST_BOARD_KEY, boardId);
     }
   }
 
@@ -91,7 +97,8 @@ export function useBoard() {
     const newBoard = await createBoard(name);
     if (newBoard) {
       setBoards([...boards, newBoard]);
-      setBoard(newBoard); // Switch to the new board
+      setBoard(newBoard);
+      localStorage.setItem(LAST_BOARD_KEY, newBoard.id);
     }
     return newBoard;
   }
@@ -113,6 +120,7 @@ export function useBoard() {
     // If deleting current board, switch to another one
     if (deletingCurrent && updatedBoards.length > 0) {
       setBoard(updatedBoards[0]);
+      localStorage.setItem(LAST_BOARD_KEY, updatedBoards[0].id);
     }
 
     try {

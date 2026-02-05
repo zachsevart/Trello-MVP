@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import {
   DndContext,
   DragOverlay,
@@ -13,7 +13,6 @@ import {
 import {
   SortableContext,
   horizontalListSortingStrategy,
-  verticalListSortingStrategy,
   arrayMove,
 } from '@dnd-kit/sortable';
 import { useBoard } from '../hooks/useBoard';
@@ -24,7 +23,7 @@ import { List } from './List';
 import { Card } from './Card';
 import { SortableList } from './SortableList';
 import { AddList } from './AddList';
-import type { Card as CardType, List as ListType } from '../types';
+import type { Card as CardType } from '../types';
 import './Board.css';
 
 const BACKGROUND_OPTIONS = [

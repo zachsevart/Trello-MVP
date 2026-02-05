@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Card } from './Card';
-import type { Card as CardType, List, Label, ChecklistItem } from '../types';
+import type { Card as CardType, List, Label } from '../types';
 
 interface SortableCardProps {
   card: CardType;

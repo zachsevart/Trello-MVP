@@ -4,13 +4,14 @@ A minimally viable Trello clone built with React, TypeScript, and Supabase.
 
 ## Features
 
-- **Boards**: Editable board name, board switcher UI
-- **Lists**: Add, rename, delete, collapse/expand
-- **Cards**: Add, edit title, delete
-- **Move Cards**: Transfer cards between lists
-- **Card Fields**: Story points, due dates (with overdue highlighting)
-- **Labels**: Colored tags with toggle on/off per card
-- **Persistence**: All data stored in Supabase (PostgreSQL)
+- **Multiple Boards**: Create, switch, delete boards with per-board backgrounds
+- **Drag & Drop**: Reorder lists and cards, move cards across lists (dnd-kit)
+- **Lists**: Add, rename, delete, collapse/expand, sort by story points or due date
+- **Cards**: Add, edit, delete with modal detail view
+- **Card Details**: Description, checklist with progress bar, story points, due dates
+- **Labels**: Colored tags with editable names, shared across all cards
+- **Persistence**: All data stored in Supabase (PostgreSQL + JSONB for checklists)
+- **Optimistic Updates**: Instant UI feedback with rollback on errors
 
 ## Tech Stack
 
@@ -20,58 +21,39 @@ A minimally viable Trello clone built with React, TypeScript, and Supabase.
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js 18+
-- A Supabase account
-
-### 1. Clone and Install
+### Quick Start
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/zachsevart/Trello-MVP.git
 cd Trello-MVP
 npm install
-```
-
-### 2. Configure Environment
-
-```bash
-cp .env.example .env
-```
-
-Edit `.env` with your Supabase credentials:
-
-```
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_PUBLISHABLE_KEY=your-key-here
-```
-this is included in the .env file. For future, API keys never exposed in frontend or public repositories, but for current demo it is fine. 
-
-### 3. Run Development Server
-
-```bash
 npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173)
 
+> **Note:** Supabase credentials are included in `.env` for demo purposes. In production, API keys should never be committed to public repositories.
+
 ## Project Structure
 
 ```
 src/
-├── lib/supabase.ts       # Supabase client
-├── types/index.ts        # TypeScript interfaces
-├── hooks/                # Data fetching & state
-│   ├── useBoard.ts
-│   ├── useLists.ts
-│   ├── useCards.ts
-│   └── useLabels.ts
-├── components/           # React components
-│   ├── Board.tsx
-│   ├── List.tsx
-│   ├── Card.tsx
-│   ├── AddList.tsx
-│   └── AddCard.tsx
+├── lib/supabase.ts          # Supabase client
+├── types/index.ts           # TypeScript interfaces
+├── hooks/                   # Data fetching & state
+│   ├── useBoard.ts          # Board CRUD, switching
+│   ├── useLists.ts          # List CRUD, reordering
+│   ├── useBoardCards.ts     # Card CRUD, cross-list drag
+│   └── useLabels.ts         # Labels & card-label associations
+├── components/              # React components
+│   ├── Board.tsx            # Main container, DnD context
+│   ├── List.tsx             # List column with sorting
+│   ├── Card.tsx             # Card display & menus
+│   ├── CardModal.tsx        # Card detail modal
+│   ├── SortableList.tsx     # DnD wrapper for lists
+│   ├── SortableCard.tsx     # DnD wrapper for cards
+│   ├── AddList.tsx          # New list form
+│   └── AddCard.tsx          # New card form
 └── App.tsx
 ```
 

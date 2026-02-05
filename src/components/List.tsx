@@ -1,10 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useDroppable } from '@dnd-kit/core';
 import { SortableCard } from './SortableCard';
 import { AddCard } from './AddCard';
 import type { List as ListType, Label, Card as CardType } from '../types';
 import './List.css';
+
+type SortOption = 'position' | 'story_points_asc' | 'story_points_desc' | 'due_date_asc' | 'due_date_desc';
 
 interface ListProps {
   list: ListType;
@@ -40,10 +42,50 @@ export function List({
   const [isEditingName, setIsEditingName] = useState(false);
   const [editedName, setEditedName] = useState(list.name);
   const [showMenu, setShowMenu] = useState(false);
+  const [sortBy, setSortBy] = useState<SortOption>('position');
   const menuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const isCollapsed = list.is_collapsed ?? false;
+
+  // Sort cards based on selected option
+  const sortedCards = useMemo(() => {
+    const cardsCopy = [...cards];
+
+    switch (sortBy) {
+      case 'story_points_asc':
+        return cardsCopy.sort((a, b) => {
+          if (a.story_points == null && b.story_points == null) return 0;
+          if (a.story_points == null) return 1;
+          if (b.story_points == null) return -1;
+          return a.story_points - b.story_points;
+        });
+      case 'story_points_desc':
+        return cardsCopy.sort((a, b) => {
+          if (a.story_points == null && b.story_points == null) return 0;
+          if (a.story_points == null) return 1;
+          if (b.story_points == null) return -1;
+          return b.story_points - a.story_points;
+        });
+      case 'due_date_asc':
+        return cardsCopy.sort((a, b) => {
+          if (!a.due_date && !b.due_date) return 0;
+          if (!a.due_date) return 1;
+          if (!b.due_date) return -1;
+          return new Date(a.due_date).getTime() - new Date(b.due_date).getTime();
+        });
+      case 'due_date_desc':
+        return cardsCopy.sort((a, b) => {
+          if (!a.due_date && !b.due_date) return 0;
+          if (!a.due_date) return 1;
+          if (!b.due_date) return -1;
+          return new Date(b.due_date).getTime() - new Date(a.due_date).getTime();
+        });
+      case 'position':
+      default:
+        return cardsCopy.sort((a, b) => a.position - b.position);
+    }
+  }, [cards, sortBy]);
 
   // Make list a droppable area for cards
   const { setNodeRef } = useDroppable({
@@ -133,7 +175,41 @@ export function List({
           </button>
           {showMenu && (
             <div ref={menuRef} className="list-menu">
-              <button onClick={() => { onDelete(); setShowMenu(false); }}>
+              <div className="list-menu-section">
+                <span className="list-menu-label">Sort by</span>
+                <button
+                  className={sortBy === 'position' ? 'active' : ''}
+                  onClick={() => { setSortBy('position'); }}
+                >
+                  Manual (Position)
+                </button>
+                <button
+                  className={sortBy === 'story_points_asc' ? 'active' : ''}
+                  onClick={() => { setSortBy('story_points_asc'); }}
+                >
+                  Story Points ↑
+                </button>
+                <button
+                  className={sortBy === 'story_points_desc' ? 'active' : ''}
+                  onClick={() => { setSortBy('story_points_desc'); }}
+                >
+                  Story Points ↓
+                </button>
+                <button
+                  className={sortBy === 'due_date_asc' ? 'active' : ''}
+                  onClick={() => { setSortBy('due_date_asc'); }}
+                >
+                  Due Date ↑
+                </button>
+                <button
+                  className={sortBy === 'due_date_desc' ? 'active' : ''}
+                  onClick={() => { setSortBy('due_date_desc'); }}
+                >
+                  Due Date ↓
+                </button>
+              </div>
+              <div className="list-menu-divider" />
+              <button className="list-menu-delete" onClick={() => { onDelete(); setShowMenu(false); }}>
                 Delete list
               </button>
             </div>
@@ -149,10 +225,10 @@ export function List({
         <>
           <div className="list-content" ref={setNodeRef}>
             <SortableContext
-              items={cards.map((c) => c.id)}
+              items={sortedCards.map((c) => c.id)}
               strategy={verticalListSortingStrategy}
             >
-              {cards.map((card) => (
+              {sortedCards.map((card) => (
                 <SortableCard
                   key={card.id}
                   card={card}

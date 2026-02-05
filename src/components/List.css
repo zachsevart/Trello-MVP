@@ -1,0 +1,28 @@
+/* List Component Styles */
+
+.list {
+  width: 272px;
+  flex-shrink: 0;
+  background-color: #ebecf0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 140px);
+}
+
+.list-header {
+  padding: 8px;
+}
+
+.list-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #172b4d;
+}
+
+.list-content {
+  padding: 0 8px 8px;
+  overflow-y: auto;
+  flex: 1;
+}

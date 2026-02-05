@@ -1,0 +1,27 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0079bf;
+}
+
+.app-header {
+  background-color: rgba(0, 0, 0, 0.15);
+  padding: 8px 16px;
+  color: white;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.board-container {
+  flex: 1;
+  padding: 12px;
+  overflow-x: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}

@@ -101,11 +101,11 @@ export function useLabels(boardId: string | undefined) {
     }
   }
 
-  async function updateLabel(labelId: string, updates: Partial<Pick<Label, 'name' | 'color'>>) {
-    const previousLabels = labels;
-
-    // Optimistic update
-    setLabels(labels.map(l => l.id === labelId ? { ...l, ...updates } : l));
+  const updateLabel = useCallback(async (labelId: string, updates: Partial<Pick<Label, 'name' | 'color'>>) => {
+    setLabels(prev => {
+      const updated = prev.map(l => l.id === labelId ? { ...l, ...updates } : l);
+      return updated;
+    });
 
     try {
       const { error } = await supabase
@@ -115,10 +115,11 @@ export function useLabels(boardId: string | undefined) {
 
       if (error) throw error;
     } catch (err) {
-      setLabels(previousLabels);
+      // Refetch on error to ensure consistency
+      fetchLabels();
       setError(err instanceof Error ? err.message : 'Failed to update label');
     }
-  }
+  }, [fetchLabels]);
 
   async function toggleCardLabel(cardId: string, labelId: string) {
     const existing = cardLabels.find(cl => cl.card_id === cardId && cl.label_id === labelId);

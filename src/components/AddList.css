@@ -1,0 +1,73 @@
+/* AddList Component Styles */
+
+.add-list-button {
+  min-width: 272px;
+  padding: 12px;
+  background-color: rgba(255, 255, 255, 0.24);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.add-list-button:hover {
+  background-color: rgba(255, 255, 255, 0.32);
+}
+
+.add-list-form {
+  min-width: 272px;
+  padding: 8px;
+  background-color: #ebecf0;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.add-list-input {
+  width: 100%;
+  padding: 8px;
+  border: 2px solid #0079bf;
+  border-radius: 3px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.add-list-input:focus {
+  outline: none;
+}
+
+.add-list-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.add-list-submit {
+  padding: 8px 12px;
+  background-color: #0079bf;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.add-list-submit:hover {
+  background-color: #026aa7;
+}
+
+.add-list-cancel {
+  padding: 8px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #6b778c;
+}
+
+.add-list-cancel:hover {
+  color: #172b4d;
+}

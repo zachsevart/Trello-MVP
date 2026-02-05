@@ -7,14 +7,204 @@
   padding: 8px 12px;
   margin-bottom: 8px;
   cursor: pointer;
+  position: relative;
 }
 
 .card:hover {
   background-color: #f4f5f7;
 }
 
+.card:hover .card-menu-btn {
+  opacity: 1;
+}
+
+/* Labels */
+.card-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.card-label {
+  width: 40px;
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Title */
 .card-title {
   margin: 0;
   font-size: 14px;
   color: #172b4d;
+  word-wrap: break-word;
+}
+
+.card-title-input {
+  width: 100%;
+  font-size: 14px;
+  color: #172b4d;
+  padding: 4px;
+  border: 2px solid #0079bf;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.card-title-input:focus {
+  outline: none;
+}
+
+/* Badges */
+.card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.card-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  font-size: 12px;
+  border-radius: 3px;
+  background-color: #ebecf0;
+  color: #5e6c84;
+}
+
+.card-badge-points {
+  background-color: #dfe1e6;
+}
+
+.card-badge-date {
+  background-color: #f4f5f7;
+}
+
+.card-badge-date.overdue {
+  background-color: #eb5a46;
+  color: white;
+}
+
+/* Menu Button */
+.card-menu-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 3px;
+  padding: 4px 8px;
+  cursor: pointer;
+  opacity: 0;
+  font-size: 14px;
+  color: #6b778c;
+}
+
+.card-menu-btn:hover {
+  background: #ebecf0;
+}
+
+/* Menu */
+.card-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border-radius: 3px;
+  box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25);
+  min-width: 180px;
+  z-index: 20;
+  margin-top: 4px;
+}
+
+.card-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #ebecf0;
+  font-weight: 600;
+  font-size: 14px;
+  color: #5e6c84;
+}
+
+.card-menu-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b778c;
+  font-size: 14px;
+}
+
+.card-menu button:not(.card-menu-close) {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #172b4d;
+}
+
+.card-menu button:not(.card-menu-close):hover {
+  background-color: #f4f5f7;
+}
+
+/* Label Menu */
+.card-label-menu .label-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-label-menu .label-option.active {
+  background-color: #e4f0f6;
+}
+
+.label-color {
+  width: 32px;
+  height: 20px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.label-name {
+  flex: 1;
+}
+
+.label-check {
+  color: #0079bf;
+}
+
+/* Details Menu */
+.card-details-menu {
+  padding: 8px 0;
+}
+
+.card-detail-field {
+  padding: 8px 12px;
+}
+
+.card-detail-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5e6c84;
+  margin-bottom: 4px;
+}
+
+.card-detail-field input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #dfe1e6;
+  border-radius: 3px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.card-detail-field input:focus {
+  outline: none;
+  border-color: #0079bf;
 }

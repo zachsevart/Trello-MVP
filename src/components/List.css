@@ -10,8 +10,40 @@
   max-height: calc(100vh - 140px);
 }
 
+.list-collapsed {
+  width: auto;
+  min-width: 40px;
+}
+
+.list-collapsed .list-header {
+  flex-direction: column;
+  padding: 8px 4px;
+}
+
+.list-collapsed .list-title {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
 .list-header {
   padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.list-collapse-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 12px;
+  color: #6b778c;
+  border-radius: 3px;
+}
+
+.list-collapse-btn:hover {
+  background-color: rgba(9, 30, 66, 0.08);
 }
 
 .list-title {
@@ -19,10 +51,82 @@
   font-size: 14px;
   font-weight: 600;
   color: #172b4d;
+  flex: 1;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 3px;
+}
+
+.list-title:hover {
+  background-color: rgba(9, 30, 66, 0.08);
+}
+
+.list-title-input {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  color: #172b4d;
+  padding: 4px;
+  border: 2px solid #0079bf;
+  border-radius: 3px;
+  background: white;
+}
+
+.list-title-input:focus {
+  outline: none;
+}
+
+.list-menu-container {
+  position: relative;
+}
+
+.list-menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 14px;
+  color: #6b778c;
+  border-radius: 3px;
+}
+
+.list-menu-btn:hover {
+  background-color: rgba(9, 30, 66, 0.08);
+}
+
+.list-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border-radius: 3px;
+  box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25);
+  min-width: 150px;
+  z-index: 10;
+}
+
+.list-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #172b4d;
+}
+
+.list-menu button:hover {
+  background-color: #f4f5f7;
 }
 
 .list-content {
-  padding: 0 8px 8px;
+  padding: 0 8px;
   overflow-y: auto;
   flex: 1;
+}
+
+.list-footer {
+  padding: 8px;
 }

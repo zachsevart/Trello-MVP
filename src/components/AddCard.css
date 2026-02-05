@@ -1,0 +1,72 @@
+/* AddCard Component Styles */
+
+.add-card-button {
+  width: 100%;
+  padding: 8px;
+  background: none;
+  border: none;
+  border-radius: 3px;
+  color: #5e6c84;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.add-card-button:hover {
+  background-color: rgba(9, 30, 66, 0.08);
+  color: #172b4d;
+}
+
+.add-card-form {
+  padding: 0;
+}
+
+.add-card-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: none;
+  box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+  box-sizing: border-box;
+}
+
+.add-card-input:focus {
+  outline: none;
+}
+
+.add-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.add-card-submit {
+  padding: 8px 12px;
+  background-color: #0079bf;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.add-card-submit:hover {
+  background-color: #026aa7;
+}
+
+.add-card-cancel {
+  padding: 8px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #6b778c;
+}
+
+.add-card-cancel:hover {
+  color: #172b4d;
+}

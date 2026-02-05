@@ -33,13 +33,7 @@ cd Trello-MVP
 npm install
 ```
 
-### 2. Set Up Supabase
-
-1. Create a new project at [supabase.com](https://supabase.com)
-2. Run the SQL from `supabase/schema.sql` in the SQL Editor
-3. Copy your project URL and publishable key from Settings > API
-
-### 3. Configure Environment
+### 2. Configure Environment
 
 ```bash
 cp .env.example .env
@@ -51,8 +45,9 @@ Edit `.env` with your Supabase credentials:
 VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_PUBLISHABLE_KEY=your-key-here
 ```
+this is included in the .env file. For future, API keys never exposed in frontend or public repositories, but for current demo it is fine. 
 
-### 4. Run Development Server
+### 3. Run Development Server
 
 ```bash
 npm run dev

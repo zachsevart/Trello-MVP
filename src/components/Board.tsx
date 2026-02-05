@@ -29,11 +29,11 @@ import './Board.css';
 
 const BACKGROUND_OPTIONS = [
   { id: 'none', name: 'None', url: null },
-  { id: 'mountains', name: 'Mountains', url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80' },
-  { id: 'ocean', name: 'Ocean', url: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1920&q=80' },
-  { id: 'forest', name: 'Forest', url: 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&q=80' },
-  { id: 'city', name: 'City', url: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1920&q=80' },
-  { id: 'desert', name: 'Desert', url: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1920&q=80' },
+  { id: 'mountains', name: 'Mountains', url: '/backgrounds/mountains.jpg' },
+  { id: 'ocean', name: 'Ocean', url: '/backgrounds/ocean.jpg' },
+  { id: 'forest', name: 'Forest', url: '/backgrounds/forest.jpg' },
+  { id: 'city', name: 'City', url: '/backgrounds/city.jpg' },
+  { id: 'desert', name: 'Desert', url: '/backgrounds/desert.jpg' },
 ];
 
 type DragType = 'list' | 'card' | null;

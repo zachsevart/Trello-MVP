@@ -3,10 +3,10 @@
 .add-list-button {
   min-width: 272px;
   padding: 12px;
-  background-color: rgba(255, 255, 255, 0.24);
+  background-color: rgba(255, 255, 255, 0.12);
   border: none;
-  border-radius: 8px;
-  color: white;
+  border-radius: 12px;
+  color: #9fadbc;
   font-size: 14px;
   cursor: pointer;
   text-align: left;
@@ -14,24 +14,36 @@
 }
 
 .add-list-button:hover {
-  background-color: rgba(255, 255, 255, 0.32);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Darker text when board has a background image */
+.has-background .add-list-button {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+}
+
+.has-background .add-list-button:hover {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .add-list-form {
   min-width: 272px;
   padding: 8px;
-  background-color: #ebecf0;
-  border-radius: 8px;
+  background-color: #101204;
+  border-radius: 12px;
   flex-shrink: 0;
 }
 
 .add-list-input {
   width: 100%;
   padding: 8px;
-  border: 2px solid #0079bf;
+  border: 2px solid #579dff;
   border-radius: 3px;
   font-size: 14px;
   box-sizing: border-box;
+  background-color: #1d2125;
+  color: #b6c2cf;
 }
 
 .add-list-input:focus {
@@ -47,16 +59,17 @@
 
 .add-list-submit {
   padding: 8px 12px;
-  background-color: #0079bf;
+  background-color: #579dff;
   border: none;
   border-radius: 3px;
-  color: white;
+  color: #1d2125;
   font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
 }
 
 .add-list-submit:hover {
-  background-color: #026aa7;
+  background-color: #85b8ff;
 }
 
 .add-list-cancel {
@@ -65,9 +78,9 @@
   border: none;
   font-size: 16px;
   cursor: pointer;
-  color: #6b778c;
+  color: #9fadbc;
 }
 
 .add-list-cancel:hover {
-  color: #172b4d;
+  color: #b6c2cf;
 }

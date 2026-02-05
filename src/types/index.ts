@@ -17,6 +17,12 @@ export interface List {
   updated_at: string;
 }
 
+export interface ChecklistItem {
+  id: string;
+  text: string;
+  checked: boolean;
+}
+
 export interface Card {
   id: string;
   list_id: string;
@@ -25,6 +31,8 @@ export interface Card {
   position: number;
   story_points?: number | null;
   due_date?: string | null;
+  is_complete?: boolean;
+  checklist?: ChecklistItem[];
   created_at: string;
   updated_at: string;
 }

@@ -30,8 +30,28 @@ CREATE TABLE cards (
   title TEXT NOT NULL,
   description TEXT DEFAULT '' NOT NULL,
   position INTEGER NOT NULL DEFAULT 0,
+  story_points INTEGER DEFAULT NULL,
+  due_date DATE DEFAULT NULL,
+  is_complete BOOLEAN DEFAULT FALSE NOT NULL,
+  checklist JSONB DEFAULT '[]'::jsonb NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
   updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
+);
+
+-- Labels table
+CREATE TABLE labels (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  board_id UUID NOT NULL REFERENCES boards(id) ON DELETE CASCADE,
+  name TEXT DEFAULT '' NOT NULL,
+  color TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
+);
+
+-- Card-Label junction table (many-to-many)
+CREATE TABLE card_labels (
+  card_id UUID NOT NULL REFERENCES cards(id) ON DELETE CASCADE,
+  label_id UUID NOT NULL REFERENCES labels(id) ON DELETE CASCADE,
+  PRIMARY KEY (card_id, label_id)
 );
 
 -- ============================================
@@ -49,6 +69,13 @@ CREATE INDEX idx_cards_list_id ON cards(list_id);
 
 -- Index for ordering cards within a list
 CREATE INDEX idx_cards_position ON cards(list_id, position);
+
+-- Index for faster label lookups by board
+CREATE INDEX idx_labels_board_id ON labels(board_id);
+
+-- Indexes for card_labels junction table
+CREATE INDEX idx_card_labels_card_id ON card_labels(card_id);
+CREATE INDEX idx_card_labels_label_id ON card_labels(label_id);
 
 -- ============================================
 -- FUNCTIONS
@@ -96,6 +123,8 @@ CREATE TRIGGER trigger_cards_updated_at
 ALTER TABLE boards ENABLE ROW LEVEL SECURITY;
 ALTER TABLE lists ENABLE ROW LEVEL SECURITY;
 ALTER TABLE cards ENABLE ROW LEVEL SECURITY;
+ALTER TABLE labels ENABLE ROW LEVEL SECURITY;
+ALTER TABLE card_labels ENABLE ROW LEVEL SECURITY;
 
 -- Boards policies (public access for MVP)
 CREATE POLICY "Allow public read access on boards"
@@ -148,26 +177,74 @@ CREATE POLICY "Allow public delete access on cards"
   ON cards FOR DELETE
   USING (true);
 
+-- Labels policies (public access for MVP)
+CREATE POLICY "Allow public read access on labels"
+  ON labels FOR SELECT
+  USING (true);
+
+CREATE POLICY "Allow public insert access on labels"
+  ON labels FOR INSERT
+  WITH CHECK (true);
+
+CREATE POLICY "Allow public update access on labels"
+  ON labels FOR UPDATE
+  USING (true);
+
+CREATE POLICY "Allow public delete access on labels"
+  ON labels FOR DELETE
+  USING (true);
+
+-- Card_labels policies (public access for MVP)
+CREATE POLICY "Allow public read access on card_labels"
+  ON card_labels FOR SELECT
+  USING (true);
+
+CREATE POLICY "Allow public insert access on card_labels"
+  ON card_labels FOR INSERT
+  WITH CHECK (true);
+
+CREATE POLICY "Allow public delete access on card_labels"
+  ON card_labels FOR DELETE
+  USING (true);
+
 -- ============================================
--- SAMPLE DATA (Optional - for testing)
+-- MIGRATION: Run these if you have an existing database
 -- ============================================
 
--- Uncomment below to insert sample data:
+-- Add missing card fields
+-- ALTER TABLE cards ADD COLUMN IF NOT EXISTS story_points INTEGER DEFAULT NULL;
+-- ALTER TABLE cards ADD COLUMN IF NOT EXISTS due_date DATE DEFAULT NULL;
+-- ALTER TABLE cards ADD COLUMN IF NOT EXISTS is_complete BOOLEAN DEFAULT FALSE NOT NULL;
+-- ALTER TABLE cards ADD COLUMN IF NOT EXISTS checklist JSONB DEFAULT '[]'::jsonb NOT NULL;
 
-/*
--- Sample board
-INSERT INTO boards (id, name) VALUES
-  ('11111111-1111-1111-1111-111111111111', 'My First Board');
+-- Create labels table (if not exists)
+-- CREATE TABLE IF NOT EXISTS labels (
+--   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+--   board_id UUID NOT NULL REFERENCES boards(id) ON DELETE CASCADE,
+--   name TEXT DEFAULT '' NOT NULL,
+--   color TEXT NOT NULL,
+--   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
+-- );
 
--- Sample lists
-INSERT INTO lists (board_id, name, position) VALUES
-  ('11111111-1111-1111-1111-111111111111', 'To Do', 0),
-  ('11111111-1111-1111-1111-111111111111', 'In Progress', 1),
-  ('11111111-1111-1111-1111-111111111111', 'Done', 2);
+-- Create card_labels junction table (if not exists)
+-- CREATE TABLE IF NOT EXISTS card_labels (
+--   card_id UUID NOT NULL REFERENCES cards(id) ON DELETE CASCADE,
+--   label_id UUID NOT NULL REFERENCES labels(id) ON DELETE CASCADE,
+--   PRIMARY KEY (card_id, label_id)
+-- );
 
--- Sample cards (get list IDs from above inserts)
-INSERT INTO cards (list_id, title, description, position) VALUES
-  ((SELECT id FROM lists WHERE name = 'To Do' LIMIT 1), 'First task', 'This is my first task', 0),
-  ((SELECT id FROM lists WHERE name = 'To Do' LIMIT 1), 'Second task', 'This is my second task', 1),
-  ((SELECT id FROM lists WHERE name = 'In Progress' LIMIT 1), 'Working on this', 'Currently in progress', 0);
-*/
+-- Enable RLS on new tables
+-- ALTER TABLE labels ENABLE ROW LEVEL SECURITY;
+-- ALTER TABLE card_labels ENABLE ROW LEVEL SECURITY;
+
+-- Labels policies
+-- CREATE POLICY "Allow public read access on labels" ON labels FOR SELECT USING (true);
+-- CREATE POLICY "Allow public insert access on labels" ON labels FOR INSERT WITH CHECK (true);
+-- CREATE POLICY "Allow public update access on labels" ON labels FOR UPDATE USING (true);
+-- CREATE POLICY "Allow public delete access on labels" ON labels FOR DELETE USING (true);
+
+-- Card_labels policies
+-- CREATE POLICY "Allow public read access on card_labels" ON card_labels FOR SELECT USING (true);
+-- CREATE POLICY "Allow public insert access on card_labels" ON card_labels FOR INSERT WITH CHECK (true);
+-- CREATE POLICY "Allow public delete access on card_labels" ON card_labels FOR DELETE USING (true);
+

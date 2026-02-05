@@ -1,14 +1,16 @@
 .app {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #0079bf;
+  background-color: #1a1a1a;
+  overflow: hidden;
 }
 
 .app-header {
   background-color: rgba(0, 0, 0, 0.15);
   padding: 8px 16px;
   color: white;
+  flex-shrink: 0;
 }
 
 .app-header h1 {
@@ -19,9 +21,6 @@
 
 .board-container {
   flex: 1;
-  padding: 12px;
-  overflow-x: auto;
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
+  overflow: hidden;
 }

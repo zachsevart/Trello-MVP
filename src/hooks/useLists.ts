@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../lib/supabase';
 import type { List } from '../types';
 
@@ -6,29 +6,62 @@ export function useLists(boardId: string | undefined) {
   const [lists, setLists] = useState<List[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const fetchLists = useCallback(async () => {
-    if (!boardId) return;
-
-    try {
-      const { data, error } = await supabase
-        .from('lists')
-        .select('*')
-        .eq('board_id', boardId)
-        .order('position', { ascending: true });
-
-      if (error) throw error;
-      setLists(data || []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch lists');
-    } finally {
-      setLoading(false);
-    }
-  }, [boardId]);
+  const [isSaving, setIsSaving] = useState(false);
+  const fetchIdRef = useRef(0);
 
   useEffect(() => {
-    fetchLists();
-  }, [fetchLists]);
+    if (!boardId) {
+      setLists([]);
+      setLoading(false);
+      return;
+    }
+
+    // Clear old data and show loading immediately
+    setLists([]);
+    setLoading(true);
+
+    // Track this fetch to avoid race conditions
+    const fetchId = ++fetchIdRef.current;
+
+    async function fetchData() {
+      try {
+        const { data, error } = await supabase
+          .from('lists')
+          .select('*')
+          .eq('board_id', boardId)
+          .order('position', { ascending: true });
+
+        // Only update if this is still the latest fetch
+        if (fetchId !== fetchIdRef.current) return;
+
+        if (error) throw error;
+        setLists(data || []);
+      } catch (err) {
+        if (fetchId !== fetchIdRef.current) return;
+        setError(err instanceof Error ? err.message : 'Failed to fetch lists');
+      } finally {
+        if (fetchId === fetchIdRef.current) {
+          setLoading(false);
+        }
+      }
+    }
+
+    fetchData();
+  }, [boardId]);
+
+  async function refreshLists() {
+    if (!boardId) return;
+
+    const { data, error } = await supabase
+      .from('lists')
+      .select('*')
+      .eq('board_id', boardId)
+      .order('position', { ascending: true });
+
+    if (!error && data) {
+      setLists(data);
+    }
+  }
 
   async function addList(name: string) {
     if (!boardId) return;
@@ -109,6 +142,7 @@ export function useLists(boardId: string | undefined) {
 
     // Optimistic update
     setLists(reorderedLists);
+    setIsSaving(true);
 
     try {
       const updates = reorderedLists.map((list, index) => ({
@@ -127,6 +161,8 @@ export function useLists(boardId: string | undefined) {
     } catch (err) {
       setLists(previousLists);
       setError(err instanceof Error ? err.message : 'Failed to reorder lists');
+    } finally {
+      setIsSaving(false);
     }
   }
 
@@ -134,10 +170,11 @@ export function useLists(boardId: string | undefined) {
     lists,
     loading,
     error,
+    isSaving,
     addList,
     updateList,
     deleteList,
     reorderLists,
-    refreshLists: fetchLists,
+    refreshLists,
   };
 }

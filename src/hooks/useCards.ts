@@ -62,7 +62,7 @@ export function useCards(listId: string, refreshTrigger?: number) {
     }
   }
 
-  async function updateCard(cardId: string, updates: Partial<Pick<Card, 'title' | 'description' | 'story_points' | 'due_date'>>) {
+  async function updateCard(cardId: string, updates: Partial<Pick<Card, 'title' | 'description' | 'story_points' | 'due_date' | 'is_complete' | 'checklist'>>) {
     const previousCards = cards;
 
     // Optimistic update

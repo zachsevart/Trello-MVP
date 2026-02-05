@@ -87,6 +87,51 @@ export function useBoard() {
     }
   }
 
+  async function addBoard(name: string) {
+    const newBoard = await createBoard(name);
+    if (newBoard) {
+      setBoards([...boards, newBoard]);
+      setBoard(newBoard); // Switch to the new board
+    }
+    return newBoard;
+  }
+
+  async function deleteBoard(boardId: string) {
+    // Don't allow deleting the last board
+    if (boards.length <= 1) {
+      setError('Cannot delete the last board');
+      return;
+    }
+
+    const previousBoards = boards;
+    const deletingCurrent = board?.id === boardId;
+
+    // Optimistic update
+    const updatedBoards = boards.filter(b => b.id !== boardId);
+    setBoards(updatedBoards);
+
+    // If deleting current board, switch to another one
+    if (deletingCurrent && updatedBoards.length > 0) {
+      setBoard(updatedBoards[0]);
+    }
+
+    try {
+      const { error } = await supabase
+        .from('boards')
+        .delete()
+        .eq('id', boardId);
+
+      if (error) throw error;
+    } catch (err) {
+      // Rollback
+      setBoards(previousBoards);
+      if (deletingCurrent) {
+        setBoard(previousBoards.find(b => b.id === boardId) || null);
+      }
+      setError(err instanceof Error ? err.message : 'Failed to delete board');
+    }
+  }
+
   return {
     board,
     boards,
@@ -94,7 +139,8 @@ export function useBoard() {
     error,
     updateBoardName,
     switchBoard,
-    createBoard,
+    addBoard,
+    deleteBoard,
     refreshBoards: fetchBoards,
   };
 }

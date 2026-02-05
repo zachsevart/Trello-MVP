@@ -1,0 +1,475 @@
+/* Card Modal Styles */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 48px 16px;
+  z-index: 2000;
+  overflow-y: auto;
+  cursor: default;
+}
+
+.modal-content {
+  background: #323940;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 768px;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #9fadbc;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* Header */
+.modal-header {
+  padding: 20px 48px 12px 20px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #b6c2cf;
+  cursor: pointer;
+  padding: 4px;
+  margin: -4px;
+  border-radius: 4px;
+}
+
+.modal-title:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-title-input {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 600;
+  color: #b6c2cf;
+  background: #22272b;
+  border: 2px solid #579dff;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.modal-title-input:focus {
+  outline: none;
+}
+
+.modal-list-info {
+  margin: 8px 0 0 0;
+  font-size: 14px;
+  color: #9fadbc;
+}
+
+/* Body */
+.modal-body {
+  display: flex;
+  gap: 16px;
+  padding: 0 20px 20px;
+}
+
+.modal-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.modal-sidebar {
+  width: 180px;
+  flex-shrink: 0;
+}
+
+/* Sections */
+.modal-section {
+  margin-bottom: 24px;
+}
+
+.modal-section-title {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #b6c2cf;
+}
+
+/* Labels */
+.modal-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.modal-label {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Description */
+.modal-description {
+  background: #22272b;
+  border-radius: 4px;
+  padding: 12px;
+  min-height: 80px;
+  color: #b6c2cf;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.modal-description:hover {
+  background: #2c333a;
+}
+
+.modal-description-input {
+  width: 100%;
+  min-height: 120px;
+  background: #22272b;
+  border: 2px solid #579dff;
+  border-radius: 4px;
+  padding: 12px;
+  color: #b6c2cf;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.modal-description-input:focus {
+  outline: none;
+}
+
+.description-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.description-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-save {
+  background: #579dff;
+  color: #1d2125;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-save:hover {
+  background: #85b8ff;
+}
+
+.btn-cancel {
+  background: none;
+  color: #9fadbc;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.btn-cancel:hover {
+  color: white;
+}
+
+/* Checklist */
+.checklist-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: #9fadbc;
+  width: 32px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #22272b;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #579dff;
+  transition: width 0.2s ease;
+}
+
+.progress-fill[style*="100%"] {
+  background: #7bc86c;
+}
+
+.checklist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: #22272b;
+  border-radius: 4px;
+}
+
+.checklist-item:hover {
+  background: #2c333a;
+}
+
+.checklist-item:hover .checklist-delete {
+  opacity: 1;
+}
+
+.checklist-checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.checklist-text {
+  flex: 1;
+  font-size: 14px;
+  color: #b6c2cf;
+}
+
+.checklist-text.checked {
+  text-decoration: line-through;
+  color: #7a8690;
+}
+
+.checklist-delete {
+  background: none;
+  border: none;
+  color: #9fadbc;
+  cursor: pointer;
+  padding: 4px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.checklist-delete:hover {
+  color: #eb5a46;
+}
+
+.checklist-add {
+  display: flex;
+  gap: 8px;
+}
+
+.checklist-add-input {
+  flex: 1;
+  background: #22272b;
+  border: 1px solid #3d444d;
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: #b6c2cf;
+  font-size: 14px;
+}
+
+.checklist-add-input:focus {
+  outline: none;
+  border-color: #579dff;
+}
+
+.checklist-add-btn {
+  background: #579dff;
+  color: #1d2125;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.checklist-add-btn:hover {
+  background: #85b8ff;
+}
+
+/* Sidebar */
+.sidebar-section {
+  margin-bottom: 16px;
+}
+
+.sidebar-title {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #9fadbc;
+  text-transform: uppercase;
+}
+
+.sidebar-btn {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background: #22272b;
+  border: none;
+  border-radius: 4px;
+  color: #b6c2cf;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.sidebar-btn:hover {
+  background: #2c333a;
+}
+
+.sidebar-btn-danger:hover {
+  background: #eb5a46;
+  color: white;
+}
+
+.sidebar-field {
+  margin-bottom: 12px;
+}
+
+.sidebar-field label {
+  display: block;
+  font-size: 12px;
+  color: #9fadbc;
+  margin-bottom: 4px;
+}
+
+.sidebar-field input {
+  width: 100%;
+  padding: 8px;
+  background: #22272b;
+  border: 1px solid #3d444d;
+  border-radius: 4px;
+  color: #b6c2cf;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.sidebar-field input:focus {
+  outline: none;
+  border-color: #579dff;
+}
+
+/* Label Picker */
+.sidebar-btn-wrapper {
+  position: relative;
+}
+
+.label-picker {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #282e33;
+  border-radius: 4px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  margin-top: 4px;
+  padding: 4px;
+}
+
+.label-picker-item {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.label-picker-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.label-picker-item.active {
+  background: rgba(87, 157, 255, 0.2);
+}
+
+.label-picker-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  padding: 8px;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.label-picker-color {
+  width: 32px;
+  height: 20px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.label-picker-name {
+  flex: 1;
+  color: #b6c2cf;
+  font-size: 14px;
+}
+
+.label-picker-input {
+  flex: 1;
+  background: #1d2125;
+  border: 1px solid #579dff;
+  border-radius: 3px;
+  padding: 4px 8px;
+  color: #b6c2cf;
+  font-size: 14px;
+}
+
+.label-picker-input:focus {
+  outline: none;
+}
+
+.label-picker-check {
+  color: #579dff;
+  font-weight: bold;
+}
+
+.label-picker-edit {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: #9fadbc;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.label-picker-edit:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}

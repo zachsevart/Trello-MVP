@@ -1,3 +1,5 @@
+// TODO: implement working useLabels hook
+
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import type { Label, CardLabel } from '../types';

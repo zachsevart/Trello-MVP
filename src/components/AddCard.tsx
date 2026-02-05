@@ -23,7 +23,13 @@ export function AddCard({ onAdd }: AddCardProps) {
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key === 'Escape') {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (title.trim()) {
+        onAdd(title.trim());
+        setTitle('');
+      }
+    } else if (e.key === 'Escape') {
       handleCancel();
     }
   }

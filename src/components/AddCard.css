@@ -5,16 +5,16 @@
   padding: 8px;
   background: none;
   border: none;
-  border-radius: 3px;
-  color: #5e6c84;
+  border-radius: 8px;
+  color: #9fadbc;
   font-size: 14px;
   cursor: pointer;
   text-align: left;
 }
 
 .add-card-button:hover {
-  background-color: rgba(9, 30, 66, 0.08);
-  color: #172b4d;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #b6c2cf;
 }
 
 .add-card-form {
@@ -25,12 +25,14 @@
   width: 100%;
   padding: 8px 12px;
   border: none;
-  border-radius: 3px;
+  border-radius: 8px;
   font-size: 14px;
   font-family: inherit;
   resize: none;
-  box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
+  background-color: #22272b;
+  color: #b6c2cf;
 }
 
 .add-card-input:focus {
@@ -46,16 +48,17 @@
 
 .add-card-submit {
   padding: 8px 12px;
-  background-color: #0079bf;
+  background-color: #579dff;
   border: none;
   border-radius: 3px;
-  color: white;
+  color: #1d2125;
   font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
 }
 
 .add-card-submit:hover {
-  background-color: #026aa7;
+  background-color: #85b8ff;
 }
 
 .add-card-cancel {
@@ -64,9 +67,9 @@
   border: none;
   font-size: 16px;
   cursor: pointer;
-  color: #6b778c;
+  color: #9fadbc;
 }
 
 .add-card-cancel:hover {
-  color: #172b4d;
+  color: #b6c2cf;
 }
